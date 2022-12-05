@@ -114,7 +114,7 @@
                 branch = "stable"
             }
             verJson.push({
-                link: "https://github.com/randomguy3725/LiquidbouncePlus-Reborn/commit/" + sha,
+                link: "https://github.com/liquidbounceplusreborn/LiquidbouncePlus-Reborn/commit/" + sha,
                 sha: sha,
                 time: new Date(time),
                 msg: msg,
@@ -136,7 +136,7 @@
             })
         }
 
-        $.get("https://api.github.com/repos/randomguy3725/LiquidbouncePlus-Reborn/actions/runs", function(data, status) {
+        $.get("https://api.github.com/repos/liquidbounceplusreborn/LiquidbouncePlus-Reborn/actions/runs", function(data, status) {
             data.workflow_runs.forEach(element => {
                 if (element.name == 'build') {
                     addVer(element.head_commit.id, element.head_commit.timestamp, element.head_commit.message, element.id, element.head_branch)
