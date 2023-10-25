@@ -137,6 +137,7 @@
         }
 
         $.get("https://api.github.com/repos/liquidbounceplusreborn/LiquidbouncePlus-Reborn/actions/runs", function(data, status) {
+            data.workflow_runs.reverse();
             data.workflow_runs.forEach(element => {
                 if (element.name == 'build') {
                     addVer(element.head_commit.id, element.head_commit.timestamp, element.head_commit.message, element.id, element.head_branch)
