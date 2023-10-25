@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <title>---- LBPR betas ----</title>
-     <meta content="LiquidBounce +r (click here to download)" property="og:title" />
+     <meta content="LiquidBounce+r (click here to download)" property="og:title" />
      <meta content="LBPR betas click the above to download" property="og:description" />
      <meta content="https://liquidbounceplusreborn.github.io/download" property="og:url" />
      <meta content="https://raw.githubusercontent.com/liquidbounceplusreborn/liquidbounceplusreborn.github.io/main/download/beta/img/lbpdl.png" property="og:image" />
@@ -32,7 +32,7 @@
     <br/>
     <div class="mdui-container">
         <div class="mdui-card mdui-hoverable">
-            <div class="mdui-card-media" style="overflow: hidden;height: 400px;">
+            <div class="mdui-card-media" style="overflow: hidden;height: 120px;">
                 <img src="./img/blu.png" class="img" />
                 <div class="mdui-card-media-covered mdui-card-media-covered-gradient">
                     <div class="mdui-card-primary" style="text-align: center;">
@@ -128,20 +128,21 @@
             $('#loading-badge').html("");
             $("#tbody").html("");
             verJson.sort(function(a, b) {
-                return a.time.getTime() - b.time.getTime();
-            }).sort(function(a, b) {
-                return -1 // this is a really stupid method right?
+                return b.time.getTime() - a.time.getTime();
             }).forEach(element => {    
-                $("#tbody").append('<tr><td><a href="' + element.link + '"style="color:#FFFFFF">' + element.sha.substring(0, 7) + '</a></td><td>' + element.time.toLocaleString() + '</td><td>' + element.msg + '</td><td><a href="' + element.download_link + '"style="color:#7289da">Download</a></td></tr>')
+                $("#tbody").append(`<tr>` + 
+                        `<td><a href="${element.link}" style="color:#FFFFFF"> ${element.sha.substring(0, 7)}</a></td>` +
+                        `<td>${element.time.toLocaleString()}</td>` +
+                        `<td>${element.msg}</td>` + 
+                        `<td><a href="${element.download_link}" "style="color:#7289da">Download</a></td>` + 
+                    `</tr>`)
             })
         }
 
         $.get("https://api.github.com/repos/liquidbounceplusreborn/LiquidbouncePlus-Reborn/actions/runs", function(data, status) {
-            data.workflow_runs.reverse();
             data.workflow_runs.forEach(element => {
-                if (element.name == 'build') {
                     addVer(element.head_commit.id, element.head_commit.timestamp, element.head_commit.message, element.id, element.head_branch)
-                }
+              
             });
         })
 
